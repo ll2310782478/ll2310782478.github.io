@@ -1,0 +1,425 @@
+基础操作命令
+1.文本编辑器
+leafpad
+2.关机前执行sync命令：内存数据写入磁盘
+3.重启reboot命令等同shutdown -r now
+4.关机poweroff命令等同init 0
+    shutdown -h now
+
+
+
+
+root
+ 1.获取root权限
+ sudo passwd root
+ 2.切换root账户
+ su - root
+ 3.查看目录
+ pwd
+网络
+配置临时网络
+ifconfig eth0 192.168..../24
+route add default gw 192.168.1.1
+DNS
+vim /etc/resolv.conf
+固定配置网络
+vim /etc/network/interfaces
+      配置文件
+        auto lo
+        iface lo inet loopback
+        auto eth0
+        iface eth0 inet static
+        address 192.168.....
+        netmask 255.255.255.0
+        gateway 192.168.1.1
+重启网络服务
+1./etc/init.d/networking restart          或
+2.systemctl restart networking
+配置xshell以及putty（配置ssh服务）
+xshell
+vim /etc/ssh/sshd_config
+ 开启permitrootlogin yes（允许root认证登录）
+ 开启pubkeyauthentication yes（使用公钥认证）
+开启passwordauthentication yes（允许密码认证）
+启动服务:/etc/init.d/ssh restart或systemctl restart ssh.service
+ 开机启动：update-rc.d ssh enable
+ 开机启动格式：update-rc.d +服务
+启动服务：/lib/systemd/systemd-sysv-install enable ssh
+putty
+
+
+
+
+
+
+kali系统更新
+1.查看当前系统中所有软件包状态
+sudo dpkg --get-selections | more
+2.锁定metasploit-framework
+sudo apt-mark hold metasploit-framework
+3.查看当前已锁定的软件包
+sudo dpkg--get-selections | grep hold
+4.取消软件保留设置
+sudo apt-mark unhold metasploit-framework
+kali改镜像源
+1.查看镜像源文件
+vim /etc/apt/sources.list
+kali升级
+1.   apt update
+2.   apt upgrade
+
+
+
+
+主被动信息收集
+基于ping命令
+Traceroute命令路由跟踪
+traceroute +域名
+
+ARPIMNG
+ARP协议主要是将局域网中32位IP地址转换为对应的48位物理地址，即网卡MAC地址
+arping +ip
+
+netdiscover被动的方式探测局域网中存活的机器
+netdiscover -i eth0 -r 192.168.1.0/24
+
+HPING3
+hping3 -c 1000 -d 120 -s -w 64 -p 80 --flood --rand-source 域名
+
+FPING存活主机
+fping -ag 192.168.1.0/24 >文件名.txt
+                  (地址段）
+-a 表示存活主机
+-g 对地址段扫描不加可对单个ip扫描
+
+
+NMAP
+存活主机，
+nmap -sn 192.168.1.0/24或.1-254
+-sn表示只ping扫描，不进行端口扫描
+
+
+端口扫描主动半连接
+nmap -sS 域名 -p 端口号/1-10
+
+
+NC作用
+实现端口侦听，端口扫描，机器间传输文件，机器间网络测速
+
+NC端口扫描
+nc -nv -w 1 -z 192.168.1.1 1-100
+-nv 目标IP不做域名解析
+-w 超时时间
+-z 端口扫描
+
+scapy
+
+ARP().display()
+hwtype= 0x1	硬件类型
+  ptype= IPv4	协议
+  hwlen= None	MAC硬件地址长度
+  plen= None	协议地址长度IP
+  op= who-has		
+  hwsrc= 00:0c:29:7b:33:9e	源MAC地址
+  psrc= 192.168.1.100	源IP地址
+  hwdst= 00:00:00:00:00:00
+  pdst= 0.0.0.0
+
+
+sr1函数功能：sr1包含发送数据包和接受数据包
+
+ ICMP().display()
+###[ ICMP ]### 
+  type= echo-request
+  code= 0
+  chksum= None
+  id= 0x0
+  seq= 0x0
+
+>>> IP().display()
+###[ IP ]### 
+  version= 4
+  ihl= None
+  tos= 0x0
+  len= None
+  id= 1
+  flags= 
+  frag= 0
+  ttl= 64
+  proto= hopopt
+  chksum= None
+  src= 127.0.0.1
+  dst= 127.0.0.1
+  \options\
+
+  
+
+
+wireshark
+
+常见协议包
+ARP协议：地址解析协议（IP地址定位MAC地址）
+ICMP协议：在主机与路由之间传递控制信息
+TCP协议：三次握手。
+四次挥手:在终端输入EXIT实际上是在我们 Kali 上执行的命令，表示我们SSHD 的Server 端向客户端发起关闭链接请求。
+第一次挥手：服务端发送一[TFIN+ACK]，表示自己没有数据要发送了，想断开连接，并进入FIN wAIT_1 状态
+第二次挥手：客户端收到 FIN 后，知道不会再有数据从服务端传来，发送 ACK 进行确认，确认序号为收到序号+1（与 SYN 相同，一个 FIN 占用一个序号)。客户端进入 CLOSE WAIT 状态。
+第三次挥手：客户端发送 [FIN+ACK给对方，表示自己没有数据要发送了，客户端进入LAST_ACK 状态，然后直接断开 TCP 会话的连接，释放相应的资源。
+第四次挥手：服务户端收到了客户端的FIN 信令后，进入 TIMED_WAIT 状态」并发送 ACK 确认消息。服务端在 TIMED_WAIT 状态下，等待一段时间，没有数据到来，就认为对面已经收到了自己发送的ACK 并正确关闭了进入 CLOSE 状态，自己也断开了ITCP 连接」释放所有资源。当客户端收到服务端的ACK 回应后，会进入 CLOSE 状态并关闭本端的会话接口，释放相应资源。
+UDP协议：
+DNS协议：
+HTTP协议：基于TCP上层协议 
+
+
+普通模式
+指定抓取
+host IP
+只接收源ip发送的数据包（前面+src）
+只接收发给源ip的数据包（前面+dst）
+指定端口port +端口号
+
+实战：wires hark抓包解决服务器被黑上不了网
+场景：被黑上不了网，可以ping通网关。
+ 获取TTL值命令：cat /proc/svs/net/ipv4/ip default ttl
+ linax一般值为64
+模拟场景：
+改TTL值为“1”
+命令：ech "1"> /proc/sys/net/ipv4/ip_default_ttl
+
+扩展：TTL：数据报文生成周期
+TTL值可以反应网络设备转发数
+作用：防止数据包无限制的在公网中转发
+抓取icmp数据包
+
+MTR工具
+主机到目标之间网络质量及设备的数据可以反映出经过的设备数量
+
+NAMP工具高级使用技巧和漏洞扫描发现
+6.1 NMAP高级使用技巧
+NaMP工具
+6.1.1 NMAP 概述
+nmap 是一个网络探测和安全扫描程序，系统管理者和个人可以使用这个软件扫描大型的网络，获取那台主机正在运行以及提供什么服务等信息。mmap 支持很多扫描技术，例如：UDP、TCP、connect0、 TCPSYM半开扫描)、ftp 代理(bounce 攻击)、反向标志、ICMP、FDN、 ACK扫描、圣
+延树(Xmas Tree)、 SYN扫描和 null扫描。还可以探测操作系统类型。
+nmap 可用于:
+检测活在网络上的主机（主机发现）
+检测主机上开放的端口（端口发现或枚举）
+检测到相应的端口（服务发现）的软件和版本
+检测操作系统，硬件地址，以及软件版本
+检测脆弱性的漏洞（Nmap 的脚本）
+
+NMAP端口状态解析
+端口扫描是 Nmap 最基本最核心的功能，用于确定目标主机的 TCP/UDP 端口的开放情况。
+open：应用程序在该端口接收 TCP 连接或者 UDP 报文。
+closed ：关闭的端口对于 nmap 也是可访问的，它接收 nmap 探测报文并作出响应。但没有应用程序在其上监听。
+filtered ：由于包过滤阻止探测报文到达端口，nmap 无法确定该端口是否开放。过滤可能来自专业的防火墙设备，路由规则或者主机上的软件防火墙。
+unfiltered ：未被过滤状态意味着端口可访问，但是 nmap 无法确定它是开放还是关闭。只有用于映射防火墙规则集的 ACK 扫描才会把端口分类到这个状态。
+open | filtered ：无法确定端口是开放还是被过滤，开放的端口不响应就是一个例子。没有响应也可能意味着报文过滤器丢弃了探测报文或者它引发的任何反应。UDP，IP 协议,FIN, Null 等扫描会引起。
+closed | filtered:(关闭或者被过滤的)：无法确定端口是关闭的还是被过滤的。
+
+端口范围1-65535
+nmap语法
+常规语法：namp+ip
+常规后+“-v”
+”-v“表示显示冗余信息，显示扫描的细节，让用户了解当前扫描状态。
+nmap 192.1... -p-          =      nmap 192.16... -p 1-65535
+也可以指定端口扫描
+例子：nmap 192.168..... -p 80,22,
+
+关闭不需要开的服务方法
+认识，直接关闭服务
+命令：systemctl stop 服务
+关闭不认识的端口
+先找端口服务：
+命令：lsof -i :端口
+再筛选查找PID 命令：ps aux | grep +PID号
+
+扫描一台机器查看服务器开放端口号和操作系统类型
+半连接扫描
+命令：nmap -sS -O 域名
+参数说明：
+-O：显示出操作系统的类里。每一种操作系统都有一个指纹。
+-sS：半开扫描(half-open)
+TCP 同步扫描(TCP SYN)：因为不必全部打开一个 TCP 连接，所以这项技术通常称为半开扫描(half-open)。你可以发出一个 TCP 同步包(SYN)，然后等待回应。如果对方返画 SYNJACK(响应)包就表示目标端口正在监听，如果返回 RST数据包，就表示目标端口没有监听程序：如果收到一个SYN|ACK包，源主机就会马上发出一个 RST(提位)数据包断并和目标主机的连接，这实际上由我们的操作系统内核自动完成的。
+
+查找特定IP地址段中，开启80端口的服务器
+nmap -v -p 80 192.168.1.100-200
+
+隐藏扫描，频繁扫描会屏蔽或锁定IP
+--randomize_hosts #随机扫描，对目标主机顺序随机划分
+--scan-delay  #延时扫描，单位秒，调整探针之间延迟
+
+通配符指定IP
+192.168.*.*    #254*254个
+
+#图形化的zenmap使用
+nmap -T4 -A -v xuegod.cn
+参数解释：
+-A 完全扫描，对操作系统和软件版本号进行检测，并对目标进行 traceroute 路由探测。
+-0参数仅识别目标操作系统，并不做软件版本检测和路由探测。
+-T4 指定扫描过程使用的时序(Timing)。总有 6 个级别（0-5)，级别越高，扫描速度越快，但也容易被防火墙或 IDS 检测并屏蔽掉，在网络通讯状况良好的情况推荐使用T4。
+
+第二种：Intense scan plus UDP
+(nmap -sS -sU -T4 -A -v)
+即 UDP扫描
+-sS TcP SYN 扫描
+-sU UDP 扫描
+第三种：Intense scan.all TCP ports
+(nmap -p 1-65536-T4 -A -v)
+扫描所有 TCP端口，范围在 1-65535，试图扫描所有端口的开放情况，速度比较慢。
+-P 指定端口扫描范围
+
+
+第四种：intense scan ,no ping
+(nmap -T4 -A -v -Pn)
+非ping扫描
+-Pn  非ping扫描
+
+
+第五种：ping scan
+(nmap -sn)
+优点：速度快
+缺点：容易被屏蔽，导致无结果
+-sn ping
+
+
+
+实战：DNMAP分布式集群扫描
+
+
+生成证书文件
+
+
+#postgreSQL先进的开源数据库
+（更安全要求严格的场景，金融，电信，等）
+mySQL适用于逻辑业务简单可靠性低的互联网场景
+#
+
+
+postgreSQL
+在kali上启动数据库
+：systemctl start postgresql
+
+设置开机启动
+：systemctl enable postgresql   #经常用
+
+
+msfconsole
+
+通过help查看：
+msf相关命令可分为以下几类
+core commands	#核心命令
+module commands	#核心命令
+job commands	#后台任务命令
+resource script commands	#资源脚本命令
+database backend commands	#数据库后端命令
+credentials backend commands	#证书、凭证后端命令
+developer commands	#开发人员命令
+
+
+命令详解：
+1.核心命令 connect
+
+远程连接主机  ，一般用于内网渗透  命令：connect +ip
+连接上后输入get/
+
+
+2.模块相关命令show使用方法
+
+列出metasploit框架中的所有渗透攻击模块exloits	#耗时间，慢
+命令：show exploits
+
+命令：show payloads	#列出metasploit框架中的所有攻击载荷
+命令：show auxiliary	#列出metasploit框架中的所有辅助攻击载荷
+
+
+3.search搜索的使用方法
+
+可以精准搜索：例：search MySQL
+显示有关MySQL的模块
+
+
+
+各种漏洞等级排名
+
+
+Rank 按照可靠性降序排列：-
+excellent 漏洞利用程序绝对不会使目标服务崩溃，就像 SQL 注入、命令执行、远程文件包含、本地文件包含等等。除非有特殊情况，典型的内存破坏利用程序不可以被评估为该级别。
+great 该漏洞利用程序有一个默认的目标系统，并且可以自动检测适当的目标系统，或者在目标服务的版本检查之后可以返回到一个特定的返回地址。
+good 该漏洞利用程序有一个默认目标系统，并且是这种类型软件的“常见情况”（桌面应用程序的Windows 7，服务器的 2012 等）。
+normal该漏洞利用程序是可靠的，但是依赖于特定的版本，并且不能或者不能可靠地自动检测。-
+average该漏洞利用程序不可靠或者难以利用。
+low 对于通用的平台而言，该漏洞利用程序几乎不能利用（或者低于 50%的利用成功率）-
+manual 该漏洞利用程序不稳定或者难以利用并且基于拒绝服务（DOS)。如果一个模块只有在用
+户特别配置该模块的时候才会被用到，否则该模块不会被使用到，那么也可以评为该等级。
+
+
+通过路径查找：
+只记得路径不知道模块名称。命令：search path:mysql
+
+缩小查询范围：
+关键字：platform [平台】
+例：命令：search platform：mysql或windows或linux等
+
+通过类型查找：
+使用type命令
+只指定漏洞模块
+search type:     【exploit】可更换其他模块  
+
+联合搜索：
+
+例：查找mysql的exploit相关漏洞
+命令：search name:mysql type:exploit
+
+根据cve查找exploit相关模块
+#cve公共漏洞和暴露
+为广泛认同的信息安全漏洞或已经暴露的弱点给出一个公共的名称使用一个公共的名字
+如果在一个漏洞报告中指明一个漏洞，有cve名称，就可以很快的在其他cve兼容的数据库中找到相应的修补信息，来解决安全问题。
+search cve:2017
+
+
+use的使用方法
+use使用参数。要使用某个模块，就要用use命令
+语法：use模块的名字
+
+实战背景：2008年微软爆出的ms08-067漏洞，如果用户在受影响的系统上收到特质的rpc请求。则该漏洞可能允许远程执行命令，攻击者可未经用户验证即可利用此漏洞运行任意代码，也可进行蠕虫攻击。
+
+查找ms08-067
+
+
+利用模块use 0
+退出模块用：back而不是exit
+
+
+#use跟编号或名称利用模块
+
+模块相关命令info使用方法
+方法1，info：显示相关信息
+命令：info 名称
+方法2，
+use装载模块后直接使用info
+
+实战：win7的ms17-010
+
+步骤：
+1.选择模块，search 加漏洞编号
+2.use 模块编号
+3.show options
+4.指定ip地址：set RGOSTS  IP地址
+#取消设定的ip地址unset RHOSTS
+
+运行run
+
+查看主机是否存在这个漏洞
+
+再选择攻击模块exploit
+同上步骤：
+选择
+设定ip
+
+
+
+
+
+
+
+
