@@ -2,3 +2,30 @@
 类选择器
 ID选择器
 后代选择器（包含选择器）
+群组选择器：例如：
+复合选择器，
+
+
+高级选择器：
+后代选择器：
+是复合选择器一种，由多个选择器用空格分隔开而形成的。表示一种隶属关系。
+
+.box h2{color:red}，        表示.box 里面的h2元素
+div p span{.....}
+div a:hover{text-decoration:none}
+
+
+群组选择器：例如：
+是复合选择器一种，由多个选择器用逗号分隔开而形成的。表示一种并列关系。
+    h2{color:red;}
+    h1{color:red;}
+等价于：h1,h2{color:red;}
+
+.box h2{margin-top:10px;}
+.box p{margin-top:10px;}
+等价于： .box h2,.box p{margin-top:10px;}
+        .box h2,.box p,div{margin-top:10px;}
+
+
+
+
