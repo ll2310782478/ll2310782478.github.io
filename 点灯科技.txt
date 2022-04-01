@@ -1,0 +1,115 @@
+基于点灯科技+小爱同学+esp8266的宿舍开灯方案
+设备：esp8266
+mg90s舵机
+总价不超二十元
+软件：手机：点灯科技，米家，小爱同学
+电脑：ardunio或者esp8266的烧录软件
+ardunio需要安装所需库文件，有一点小麻烦。不做阐述，可以私信我。
+esp8266的烧录软件直接烧录程序就可以了
+程序和所需软件放在评论区链接
+打开手机点灯科技，添加设备，网络接入，复制密钥（稍后有用）
+用adrunio的可直接打开更改，当然还可以用记事本打开更改密钥以及wifi信息
+（手机开热点时需调成2.4的esp8266不支持5g）
+
+
+程序：
+#define BLINKER_WIFI
+#define BLINKER_MIOT_LIGHT//支持小爱同学
+#define BLINKER_MIOT_OUTLET
+
+#include <Servo.h>
+ 
+#define PIN_SERVO D0 //舵机信号线
+ 
+Servo myservo;
+ 
+#include <Blinker.h>
+ 
+char auth[] = "6fff7008bc42";  //点灯Key
+char ssid[] = "wifi";      //wifi名称
+char pswd[] = "12345678";     //wifi密码
+ 
+bool oState = false;
+ 
+void miotPowerState(const String & state)
+{
+    BLINKER_LOG("need set power state: ", state);
+    myservo.attach(PIN_SERVO);
+ 
+    if (state == BLINKER_CMD_ON) {
+        myservo.write(98);//舵机正转度数
+        delay(100);			//延时0.1秒
+        myservo.write(60);			//点灯后归位度数，根据实际情况更改
+        delay(100); 
+ 
+        BlinkerMIOT.powerState("on");
+        BlinkerMIOT.print();
+ 
+        oState = true;
+    }
+    else if (state == BLINKER_CMD_OFF) {
+        myservo.write(-8);//舵机反转度数，度数自行调节。
+        delay(100);
+        myservo.write(60);		//点灯后归位度数，根据实际情况更改
+        delay(100); 
+ 
+        BlinkerMIOT.powerState("off");
+        BlinkerMIOT.print();  
+ 
+        oState = false;
+    }
+}
+ 
+void miotQuery(int32_t queryCode)
+{
+    BLINKER_LOG("MIOT Query codes: ", queryCode);
+ 
+    switch (queryCode)
+    {
+        case BLINKER_CMD_QUERY_ALL_NUMBER :
+            BLINKER_LOG("MIOT Query All");
+            BlinkerMIOT.powerState(oState ? "on" : "off");
+            BlinkerMIOT.print();
+            break;
+        case BLINKER_CMD_QUERY_POWERSTATE_NUMBER :
+            BLINKER_LOG("MIOT Query Power State");
+            BlinkerMIOT.powerState(oState ? "on" : "off");
+            BlinkerMIOT.print();
+            break;
+        default :
+            BlinkerMIOT.powerState(oState ? "on" : "off");
+            BlinkerMIOT.print();
+            break;
+    }
+}
+ 
+void dataRead(const String & data)
+{
+    BLINKER_LOG("Blinker readString: ", data);
+ 
+    Blinker.vibrate();
+    
+    uint32_t BlinkerTime = millis();
+    
+    Blinker.print("millis", BlinkerTime);
+}
+ 
+void setup()
+{
+    Serial.begin(115200);
+    BLINKER_DEBUG.stream(Serial);
+ 
+    pinMode(LED_BUILTIN, OUTPUT);
+    digitalWrite(LED_BUILTIN, HIGH);			//控制板子上指示灯的开是LOW，关是HIGH（默认是关，可自行修改）
+ 
+    Blinker.begin(auth, ssid, pswd);
+    Blinker.attachData(dataRead);
+    
+    BlinkerMIOT.attachPowerState(miotPowerState);
+    BlinkerMIOT.attachQuery(miotQuery);
+}
+ 
+void loop()
+{
+    Blinker.run();
+}
