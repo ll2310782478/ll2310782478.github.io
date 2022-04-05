@@ -170,8 +170,18 @@ Trunk端口
 Hybrid端口
 即可用于连接终端，又可连接其他交换机，路由设备，特点是允许一个或者多个VLAN的帧通过，并且可以选择是带标签还是不带标签的。
 
+vlan注册协议-GVRP协议
 
-
+normal模式：
+允许该端口动态注册或注销vlan
+传播动态vlan以及静态vlan信息
+Fixed模式：
+禁止该端口动态注册或注销vlan
+只传播静态vlan，不传播动态vlan
+forbidden模式：
+禁止该端口动态注册或注销vlan
+不传播除vlan1以外的任何vlan信息
+  
 
 
 
