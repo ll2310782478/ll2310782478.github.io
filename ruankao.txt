@@ -13,8 +13,44 @@ Flynn分类法基于信息流特征将计算机分成4类。其中MISD只有理�
 OSPF报文直接调用ip协议进行封装，非广播型网络中以目标地址224.0.0.5发送LSA到所有路由器。
 病毒文件名称一般分为三个部分，第一个部分表示病毒类型，如Worm表示蠕虫病毒，Trojan表示特洛伊木马，Backdoor表示后门病毒，Macro表示宏病毒。
 如果运行windows的计算机没有配置静态地址，并且无法从HDLC获取动态地址，那么将在网络169.254.0.0/16中随机选取一个自动专用ip地址。
+ARP的协议数据单元封装在（以太帧）传送
+ICMP的协议数据单元封装在（ip数据报）传送
+RIP路由协议数据单元封装在（UDP段）中传送。
 
 
+路由器命令：
+查看版本及引导信息：show version
+查看运行设置：show running-config
+查看开机设置：show interface type slot/number
+显示路由器：show ip route
+
+
+交换机命令：
+查看补丁信息：dis patch
+查看警告信息：dis trap
+查看接口开启情况：dis int br 
+查看当前配置：dis cu 
+
+
+
+linux命令：
+cat：文件内容全部输出
+more：命令可以分页查看
+less：可以使用光标向上或向下移动一行
+
+ls-a：显示当前目录下所有文件及文件夹包括隐藏文件
+ls-l：显示不隐藏的文件与文件夹的详细信息
+ls-i：查看任意一个文件的节点（类似身份唯一信息）
+ls-s：在每个文件的后面打印出文件的大小。
+
+
+关闭防火墙的方式;
+1、永久性生效
+开启：chkconfig iptables on 
+关闭：chkconfig iptables off
+2、即时生效，重启后失效
+开启：service iptables start
+关闭：service iptables stop 
 
 
 
