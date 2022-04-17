@@ -611,6 +611,24 @@ ipconfig /all：显示本机TCP/ip配置的详细信息。
 ipconfig /release：DHCP客户端手工释放IP地址
 ifconfig /renew：DHCP客户端手工向服务器刷新请求
 
+网络管理：
+windows网络配置：
+ipconfig     /all：显示本机TCP/ip配置的详细信息
+             /release：DHCP客户端手工释放IP地址
+             /renew：DHCP客户端手工向服务器刷新请求
+             /flushdns:清除本地DNS缓存内容
+             /displaydns：显示本地DNS内容
+
+
+ping        /-t 目标ip/域名：持续屏，直到终止
+            /-i 目标ip/域名：指定数据包大小
+            /-a 目标ip/域名：ping的同时，解析目的主机名
+            /-n 目标ip/域名：指定回显数据报的数目
+
+tracert     traccert 目标ip/域名：路由跟踪
+
+pathping    显示通信线路上每个子网的延迟和丢包率
+
 
 
 
