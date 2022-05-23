@@ -1,72 +1,101 @@
-<!DOCTPYE html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>登陆</title>
+</head>
+<body bgcolor="#9D9D9D">
+    <div class="text" style="text-align: center;">
+    <h1>用户登录</h1></div>
+    <div class="text" style="text-align: center;">
+    <p>注册页面</p></div>
+<table border="4" align="center";>
+    <tr>
+        <td>姓名</td>
+        <td><input type="" name=""></td>
+
+    </tr>
+    <tr>
+        <td>姓别</td>
+        <td><input type="radio" name="sex">man
+        <input type="radio" name="sex">women</td>
+    
+    </tr>
+    <tr>
+        <td>密码</td>
+        <td><input type="password" name=""></td>
+        
+        </tr>
+    <tr>
+        <td>兴趣爱好</td>
+        <td>
+        <input type="checkbox" name="">跑步
+        <input type="checkbox" name="">打球
+        <input type="checkbox" name="">唱歌
+        
+        </td>
+    
+    </tr>
+    <tr>
+        <td>出生年月</td>
+        <td>
+            <select name="year">
+                <option>1991</option>
+                <option>1992</option>
+                <option>1993</option>
+                <option>1994</option>
+                <option>1995</option>
+                <option>1996</option>
+                <option selected="selected">1997</option>
+                <option>1998</option>
+                <option>1999</option>
+                <option>2000</option>
+                <option>2001</option>
+                <option>2002</option>
+                <option>2003</option>
+                <option>2004</option>
+                <option>2005</option>
 
 
-<html>
-    <hand>
-        <meta charest="UTP-8">
-        <title>群组选择器--仿腾讯网</title>
-        <style>
-            
-            *{  /*控制当前网上所有的元素*/
-                font-family: "宋体";
-                font-size: 14px;
-                color:red;
-                margin:0;
-                padding:0;
-            }
-            .box{
-                /* 类选择器：控制网页上的多个元素 */
-                width: 300px;
-                height: 300px;
-                border: 2px solid red;
-                float: left;
-                /* 采用浮动布局，使两个盒子水平排列 */
-                margin-left: 10px;
-                /* 添加盒子直接的距离 */
+
+
                 
-            }
-            .title1{
-                color:blue;
-                border-bottom: 2px solid blue;
-                width:20%;
-                margin-left: 10px;
-                margin-top: 10px;
-                padding-bottom: 10px;
+            </select>
+            <select name="month">
+                <option>1</option>
+                <option>2</option>
+                <option>3</option>
+                <option>4</option>
+                <option>5</option>
+                <option>6</option>
+                <option>7</option>
+                <option>8</option>
+                <option>9</option>
+                <option>10</option>
+                <option>11</option>
+                <option>12</option>
 
-            }
-            .box h2,.box4 p{
-                margin-top: 15px;
-                margin-left: 5px;
-                white-space: nowrap;
-                overflow:hidden;
-                text-overflow: ellipsis;
-             }
-             a{
-                 text-decoration: none;
-             }
-        </style>
-    </hand>
-    <body>
-        <!--第一个盒子-->
-        <div class="box">
-            <h1 class="title1">要闻</h1>
-            <hr>
-            <h2>时政微周刊|总书记的一周</h2>
-            <p><a href="#">全力遏制疫情蔓延</a></p>
-            <p><a href="#"央视快评 最小的代价实现最大的防疫效果></a></p>
-            
+            </select>
+
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <input type="file" name="imOne" id="imOne" onchange="preImg(this.id,'photo');"/>
+            <img id="photo" src="https://avater.csdn.net/8/6/F/3_qq_42275455.jpg" width="200px" height="30px" style="display: block;" alt="" />
 
 
-        </div>
-        <!--第二个盒子-->
-        <div class="box">
-            <h1 class="title1">今日话题</h1>
-            <hr>
-            <h2>保护好中华民族精神生生不息的根脉</h2>
-            <p><a href="#">经济日报</a></p>
+        </td>
 
-            
-        </div>
-    </body>
+    </tr>
+    <tr>
+        <td align="center"><button>提交</button></td>
+        <td align="center"><button>重置</button></td>
 
+    </tr>
+</table>
+    
+</body>
 </html>
