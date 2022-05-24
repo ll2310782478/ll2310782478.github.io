@@ -88,19 +88,25 @@
             background-color: #282923;        /*焦点激活时的样式*/
         }
             .hesder{width:1000px;
-                height:100px;
+                height:200px;
                 text-decoration: none;
                 border:1px solid black;
-                /* margin:0 auto; */
+                /* position: relative; */
+                /* z-index: 1; */
+                margin:0 auto;
                 
                 
             }
             .hesder_1{
-                
-                
+                width:150px;
+                height:23px;
+                text-decoration: none;
+                border:1px solid black;
+                /* position: absolute; */
+                /* z-index: 10; */
                 float: right;
                 margin-right:5px;
-                margin-top: 70px;
+                margin-top: 150px;
 
 
 
@@ -108,8 +114,8 @@
             .hesder_1 a{
                 
                 text-decoration: none;
-                float: right;
-                margin-right:0px;
+                float: left;
+                margin-left:1px;
                 margin-top: 0px;
 
 
@@ -125,14 +131,14 @@
                 
             }*/
 
-            .menuNav{width:1000px;
+            .menuNav{width:1005px;
                 height:65px;
                 border:1px solid black;
                 margin:0 auto;
                 /*字居中*/
                 
 
-                background: #1b6262;/*背景颜色*/
+                background: #ffe69a;/*背景颜色*/
                 
             }
             /* .menuNav a{
@@ -155,7 +161,7 @@
                 margin-top: 0px;
                 
 
-                background: #1b6262;/*背景颜色*/
+                background: #ffe69a;/*背景颜色*/
             }
             .menuNav1 a{
                 text-decoration: none;/*去掉下划线*/
@@ -178,7 +184,7 @@
                 margin-top: 0px;
                 
 
-                background: #1b6262;/*背景颜色*/
+                background: #ffe69a;/*背景颜色*/
             }
             .menuNav2 a{
                 text-decoration: none;/*去掉下划线*/
@@ -201,7 +207,7 @@
                 margin-top: 0px;
                 
 
-                background: #1b6262;/*背景颜色*/
+                background: #ffe69a;/*背景颜色*/
             }
             .menuNav3 a{
                 text-decoration: none;/*去掉下划线*/
@@ -224,7 +230,7 @@
                 margin-top: 0px;
                 
 
-                background: #1b6262;/*背景颜色*/
+                background: #ffe69a;/*背景颜色*/
             }
             .menuNav4 a{
                 text-decoration: none;/*去掉下划线*/
@@ -247,7 +253,7 @@
                 margin-top: 0px;
                 
 
-                background: #1b6262;/*背景颜色*/
+                background: #ffe69a;/*背景颜色*/
             }
             .menuNav5 a{
                 text-decoration: none;/*去掉下划线*/
@@ -270,7 +276,7 @@
                 margin-top: 0px;
                 
 
-                background: #1b6262;/*背景颜色*/
+                background: #ffe69a;/*背景颜色*/
             }
             .menuNav6 a{
                 text-decoration: none;/*去掉下划线*/
@@ -289,11 +295,11 @@
                 margin:0 auto;
                 /*字居中*/
                 float: left;
-                margin-left:0px;
+                margin-left:1px;
                 margin-top: 0px;
                 
 
-                background: #1b6262;/*背景颜色*/
+                background: #ffe69a;/*背景颜色*/
             }
             .menuNav7 a{
                 text-decoration: none;/*去掉下划线*/
@@ -342,7 +348,7 @@
                 height:533px;
                 border:1px solid black;
                 margin:0 auto;
-                background: #C48888;/*背景颜色*/
+                background: #e8f9fd;/*背景颜色*/
                 
                 
             }
@@ -404,8 +410,8 @@
     </hand>
     <body>
         
+        
         <div class="container">
-            
             <div class="hesder">
                 <div>
                     <span class="hesder_1">
@@ -415,9 +421,11 @@
                         <a>|</a>
                         <a href="#">首页</a>
                     </span>
-                </div>
-            
+                </div> 
+                <div style="background: url('img/logo背景.png') no-repeat;width:1000px;height:200px"></div>
                 
+                
+            
                 
             </div>
             <div class="menuNav" id="menu">
@@ -451,6 +459,7 @@
             
             <div class="main">
                 
+                
                 <div class="main_left">
                     <img src="img/飞臭.jpg">
                 <!-- <img src="img/眼镜小男孩.jpg"> -->
@@ -473,11 +482,16 @@
                         </ul>
                     </div>
                     
+                    
                 </div>
                 <div class="main_right">
                     <img src="img/飞娇.jpg">
                 </div>
                 
+            </div>
+            <div class="footer">
+                <div class="footer_1" style="text-align:center;">
+                    <a>用户登录</a></div>
             </div>
             <script type="text/javascript">
                 //1、找到container下的所有img标签,li标签,左右按钮
@@ -521,10 +535,9 @@
             
             
         </div>
-        <div class="footer">
-            <div class="footer_1" style="text-align:center;">
-                <a>用户登录</a></div>
-        </div>
+        
+    
+            
     </body>
 
 </html>
