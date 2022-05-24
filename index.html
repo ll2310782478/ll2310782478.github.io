@@ -115,6 +115,7 @@
                 
                 text-decoration: none;
                 float: left;
+                font-display: black;
                 margin-left:1px;
                 margin-top: 0px;
 
@@ -414,12 +415,13 @@
         <div class="container">
             <div class="hesder">
                 <div>
+                    
                     <span class="hesder_1">
-                        <a href="#">首页</a>
+                        <a href="#" style="color: black; ">首页</a>
                         <a>|</a>
-                        <a href="denglu.html">登录</a>
+                        <a href="denglu.html" style="color:black">登录</a>
                         <a>|</a>
-                        <a href="#">首页</a>
+                        <a href="#" style="color: black;">首页</a>
                     </span>
                 </div> 
                 <div style="background: url('img/logo背景.png') no-repeat;width:1000px;height:200px"></div>
@@ -458,6 +460,8 @@
 
             
             <div class="main">
+                
+                
                 <div class="main_left">
                     <img src="img/飞臭.jpg">
                 <!-- <img src="img/眼镜小男孩.jpg"> -->
@@ -481,32 +485,12 @@
                     </div>
                     
                     
-
-                    <div class="container2">
-                        <!-- 先把第一张图片显示出来 -->
-                        
-                        <img class="on" src="img/眼镜小男孩.jpg"/>
-                        <img src="img/飞娇.jpg"/>
-                        <img src="img/小新.jpg"/>
-                        <!-- 左右切换 -->
-                        <div class="left"><</div>
-                        <div class="right">></div>
-                        <!-- 焦点 -->
-                        <ul>
-                            <li class="active"></li>
-                            <li></li>
-                            <li></li>
-                        </ul>
-                    </div>
-                    
->>>>>>> f7b735603c308a4d18a497304da43e33ec96f42b
                 </div>
                 <div class="main_right">
                     <img src="img/飞娇.jpg">
                 </div>
                 
             </div>
-<<<<<<< HEAD
             <div class="footer">
                 <div class="footer_1" style="text-align:center;">
                     <a>用户登录</a></div>
@@ -549,45 +533,6 @@
                     aLis[index].className = 'active';
                 }
             </script>
-            <script type="text/javascript">
-                //1、找到container下的所有img标签,li标签,左右按钮
-                var aImgs = document.querySelectorAll('.container2 img');
-                var aLis = document.querySelectorAll('.container2 li');
-                var btnLeft = document.querySelector('.container2 .left');
-                var btnRight = document.querySelector('.container2 .right');
-                //点击事件
-                //点击按钮图片切换
-                var index = 0;        //当前图片下标
-                var lastIndex = 0;
-                btnRight.onclick = function(){
-                    //记录上一张图片的下标
-                    lastIndex = index;
-                    //清除上一张图片的样式
-                    aImgs[lastIndex].className = '';
-                    aLis[lastIndex].className = '';
-                    index++;
-                    index %= aImgs.length;    //实现周期性变化
-                    //设置当前图片的样式
-                    aImgs[index].className = 'on';
-                    aLis[index].className = 'active';
-                }
-                //左边按钮类似
-                btnLeft.onclick = function(){
-                    //记录上一张图片的下标
-                    lastIndex = index;
-                    //清除上一张图片的样式
-                    aImgs[lastIndex].className = '';
-                    aLis[lastIndex].className = '';
-                    index--;
-                    if (index < 0) {
-                        index = aImgs.length - 1;
-                    }
-                    //设置当前图片的样式
-                    aImgs[index].className = 'on';
-                    aLis[index].className = 'active';
-                }
-            </script>
->>>>>>> f7b735603c308a4d18a497304da43e33ec96f42b
             
             
             
