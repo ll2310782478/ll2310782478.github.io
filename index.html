@@ -157,7 +157,58 @@
                 <a><h4>二级网页</h4></a>
                 
             </div>
-            ：：after
+            <script type="text/javascript">
+                layui.use(['jquery','layer'],function(){
+                    var $ = layui.jquery ,layer = layui.layer ;
+                    var arr=document.getElementById("menu").children;
+                    var href=location.href;
+                    for(var i in arr){
+                        if(i<9){
+                            if(href == arr[i].getAttribute("href")){
+                                arr[i].setAttribute("class","cur");
+                            }
+                        }
+                    }
+        
+                    var href=window.location.href;
+                    if(href.indexOf("guide") > -1){
+                        $("#menu1").addClass("cur");
+                    }else if(href.indexOf("introduction") > -1){
+                        $("#menu2").addClass("cur");
+                    }else if(href.indexOf("arrange") > -1){
+                        $("#menu3").addClass("cur");
+                    }else if(href.indexOf("platform") > -1){
+                        $("#menu4").addClass("cur");
+                    }else if(href.indexOf("book") > -1){
+                        $("#menu5").addClass("cur");
+                    }else if(href.indexOf("cooperation") > -1){
+                        $("#menu6").addClass("cur");
+                    }else if(href.indexOf("index/footdetails?id=B3")>-1){
+                        $("#menu7").addClass("cur");
+                        $(".content").addClass("contact");
+                        $(".crumb .last").text("各地联系方式");
+                    }else{
+                        $("#menu0").addClass("cur");
+                    }
+                });
+                $(document).on("mouseenter",".jiaoshi",function(){
+                    $(this).stop().animate({"width":178},100);
+                });
+                $(document).on("mouseleave",".jiaoshi",function(){
+                    $(this).stop().animate({"width":65},100);
+                });
+        
+                $(document).on("mouseenter",".header .menuNav a",function(){
+                    $(this).addClass("hover");
+                    $(".header .cur").addClass("bj").removeClass("cur");
+                });
+                $(document).on("mouseleave",".header .menuNav a",function(){
+                    $(this).removeClass("hover");
+                    $(".header .bj").addClass("cur");
+                });
+        
+            </script>
+
             <div class="main">
                 <div class="main_left">
                     <img src="img/飞臭.jpg">
