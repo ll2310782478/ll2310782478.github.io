@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+ <head>
+  <meta charset="UTF-8">
+  <title>用户注册</title>
+  <style>
+  	.nav a{
+	           text-decoration: none;
+	           color:#333;
+	          
+	                line-height: 40px;/*行高*/
+	                margin-left: 10px;}          
+	        .nav a:hover{  /*伪类,定义当鼠标指向超链接时,超链接的样式*/
+	           color:red;}
+	        .main{width:1000px;
+	           height:600px;
+	           
+	           margin: 0 auto ;
+	           text-align:center;} /*图片居中*/
+	  
+	        /*img{width:200px;}*/
+	        /*img:hover{width: 300px;} /*图片浮动*/
+	      
+	        
+	           
+	    
+        .main_middle{
+         width:1000px;
+          height:600px;  
+          
+          /*text-align: center;*/
+         float: left;/*左侧浮动*/
+        }
+        
+        .clear{ 
+          clear: both;
+         } 
+	           
+	       
+  </style>
+ </head>
+ <body>
+ 	<div class="container">
+	    
+	    
+	   <div class="main">
+	   	<div class="main_left"></div>
+	   	<div class="main_middle">
+  <h2>注册</h2>
+        <form  action="web.html#username">
+    昵称：
+        <input type="text" name="username" required placeholder>* 
+    <br>
+  密码：
+        <input type="password" name="userpwd" required>*
+    <br>
+    确认密码：
+    <input type="password" name="userpwd" required placeholder="--请再次输入密码--">
+    <br>
+    邮箱：
+    <input type="password" name="userpwd" required placeholder="--邮箱--">
+    <br>
+  性别：
+        <input type="radio" name="sex" value="男" checked>男
+        <input type="radio" name="sex" value="女">女
+    <br>
+  爱好:
+        <input type="checkbox" name="interesting" value="0" checked>跑步
+        <input type="checkbox" name="interesting" value="1">散步
+        <input type="checkbox" name="interesting" value="2">游玩
+    <br>
+                所在省份:
+        <select>
+         <option>北京市</option>
+         <option>天津市</option>
+         <option>上海市</option>
+         <option>内蒙古自治区</option>
+         <option>广西壮族自治区</option>
+         <option>西藏自治区</option>
+         <option>宁夏回族自治区</option>
+         <option>新疆维吾尔自治区</option>
+         <option>河北省</option>
+         <option>山西省</option>
+         <option>吉林省</option>
+         <option>黑龙江省</option>
+         <option>江苏省</option>
+         <option>浙江省</option>
+         <option>安徽省</option>
+         <option>福建省</option>
+         <option>江西省</option>
+         <option>山东省</option>
+         <option>河南省</option>
+         <option>湖北省</option>
+         <option>湖南省</option>
+         <option>广东省</option>
+         <option>海南省</option>
+         <option>四川省</option>
+         <option>贵州省</option>
+         <option>云南省</option>
+         <option>陕西省</option>
+         <option>甘肃省</option>
+         <option>青海省</option>
+         <option>台湾省</option>
+         
+        </select>
+        <br>
+                      所在城市:
+	   		<select>
+	   			<option>西安市</option>	
+	   			<option>渭南市</option>
+	   			<option>汉中市</option>
+	   			<option>铜川市</option>
+	   			<option selected>宝鸡市</option>
+	   		</select>
+	   		<br>
+                       出生日期:
+        <input type="date"> 
+        <br>
+        
+        <input type="submit" value="登录"> 
+        <input type="reset" value="取消"> 
+ </body>
+</html>
