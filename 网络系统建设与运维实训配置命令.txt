@@ -1,0 +1,229 @@
+交换机用的是s5700;路由器用的是ar2220
+
+
+###注意设备名称
+###注意设备名称
+###注意设备名称
+###所有设备配置完成后需命令保存
+
+1.按照要求改名。
+
+2.链路聚合
+命令：
+[HZ-HZCampus-Agg01-S5731]interface Eth-Trunk 1	
+[HZ-HZCampus-Agg01-S5731-Eth-Trunk1]mode lacp-static 
+[HZ-HZCampus-Agg01-S5731-Eth-Trunk1]trunkport GigabitEthernet 0/0/3 to 0/0/4
+Info: This operation may take a few seconds. Please wait for a moment...done.
+[HZ-HZCampus-Agg01-S5731-Eth-Trunk1]
+
+
+[HZ-HZCampus-Acc03-S5731]int Eth-Trunk 1	
+[HZ-HZCampus-Acc03-S5731-Eth-Trunk1]mode lacp-static 	
+[HZ-HZCampus-Acc03-S5731-Eth-Trunk1]trunkport GigabitEthernet 0/0/3 to 0/0/4
+
+
+###查看配置
+命令:display eth-trunk 1
+
+3.vlan创建配置命令：
+[HZ-HZCampus-Agg01-S5731]vlan batch 10 20
+Info: This operation may take a few seconds. Please wait for a moment...done.
+[HZ-HZCampus-Agg01-S5731]interface GigabitEthernet 0/0/5	
+[HZ-HZCampus-Agg01-S5731-GigabitEthernet0/0/5]port link-type trunk
+[HZ-HZCampus-Agg01-S5731-GigabitEthernet0/0/5]port trunk allow-pass vlan 10 20
+[HZ-HZCampus-Agg01-S5731-GigabitEthernet0/0/5]q
+[HZ-HZCampus-Agg01-S5731]interface Eth-Trunk 1
+[HZ-HZCampus-Agg01-S5731-Eth-Trunk1]port link-type trunk
+[HZ-HZCampus-Agg01-S5731-Eth-Trunk1]port trunk allow-pass vlan 10 20
+[HZ-HZCampus-Agg01-S5731-Eth-Trunk1]undo port trunk allow-pass vlan 1
+[HZ-HZCampus-Agg01-S5731-Eth-Trunk1]q
+[HZ-HZCampus-Agg01-S5731]interface GigabitEthernet 0/0/2
+[HZ-HZCampus-Agg01-S5731-GigabitEthernet0/0/2]port link-type trunk
+[HZ-HZCampus-Agg01-S5731-GigabitEthernet0/0/2]port trunk allow-pass vlan 10 20
+[HZ-HZCampus-Agg01-S5731-GigabitEthernet0/0/2]q	
+[HZ-HZCampus-Agg01-S5731]interface GigabitEthernet 0/0/1
+[HZ-HZCampus-Agg01-S5731-GigabitEthernet0/0/1]port link-type trunk
+[HZ-HZCampus-Agg01-S5731-GigabitEthernet0/0/1]port trunk allow-pass vlan 10 20
+[HZ-HZCampus-Agg01-S5731-GigabitEthernet0/0/1]q
+
+
+[HZ-HZCampus-Acc03-S5731]vlan batch 10 20
+[HZ-HZCampus-Acc03-S5731]int Eth-Trunk 1
+[HZ-HZCampus-Acc03-S5731-Eth-Trunk1]port link-type trunk 
+[HZ-HZCampus-Acc03-S5731-Eth-Trunk1]port trunk allow-pass vlan 10 20
+[HZ-HZCampus-Acc03-S5731-Eth-Trunk1]undo port trunk allow-pass vlan 1
+
+
+[HZ-HZCampus-Acc02-S5731]vlan batch 10 20
+Info: This operation may take a few seconds. Please wait for a moment...done.
+[HZ-HZCampus-Acc02-S5731]interface GigabitEthernet 0/0/1
+[HZ-HZCampus-Acc02-S5731-GigabitEthernet0/0/1]port link-type trunk
+[HZ-HZCampus-Acc02-S5731-GigabitEthernet0/0/1]port trunk allow-pass vlan 10 20
+[HZ-HZCampus-Acc02-S5731-GigabitEthernet0/0/1]q
+[HZ-HZCampus-Acc02-S5731]interface GigabitEthernet 0/0/2
+[HZ-HZCampus-Acc02-S5731-GigabitEthernet0/0/2]port link-type access
+[HZ-HZCampus-Acc02-S5731-GigabitEthernet0/0/2]port default vlan 20
+[HZ-HZCampus-Acc02-S5731-GigabitEthernet0/0/2]q
+[HZ-HZCampus-Acc02-S5731]interface GigabitEthernet 0/0/3
+[HZ-HZCampus-Acc02-S5731-GigabitEthernet0/0/3]port link-type trunk	
+[HZ-HZCampus-Acc02-S5731-GigabitEthernet0/0/3]port trunk allow-pass vlan 10 20
+[HZ-HZCampus-Acc02-S5731-GigabitEthernet0/0/3]q
+[HZ-HZCampus-Acc02-S5731]
+
+
+
+[HZ-HZCampus-Acc01-S5731]vlan batch 10 20
+Info: This operation may take a few seconds. Please wait for a moment...done.
+[HZ-HZCampus-Acc01-S5731]interface GigabitEthernet 0/0/1
+[HZ-HZCampus-Acc01-S5731-GigabitEthernet0/0/1]port link-type trunk 
+[HZ-HZCampus-Acc01-S5731-GigabitEthernet0/0/1]port trunk allow-pass vlan 10 20
+[HZ-HZCampus-Acc01-S5731-GigabitEthernet0/0/1]q
+[HZ-HZCampus-Acc01-S5731]interface GigabitEthernet 0/0/2
+[HZ-HZCampus-Acc01-S5731-GigabitEthernet0/0/2]port link-type access	
+[HZ-HZCampus-Acc01-S5731-GigabitEthernet0/0/2]port default vlan 10
+[HZ-HZCampus-Acc01-S5731-GigabitEthernet0/0/2]q
+[HZ-HZCampus-Acc01-S5731]interface GigabitEthernet 0/0/3
+[HZ-HZCampus-Acc01-S5731-GigabitEthernet0/0/3]port link-type trunk
+[HZ-HZCampus-Acc01-S5731-GigabitEthernet0/0/3]port trunk allow-pass vlan 10 20
+[HZ-HZCampus-Acc01-S5731-GigabitEthernet0/0/3]q
+[HZ-HZCampus-Acc01-S5731]
+
+
+###vlan检查命令：display port vlan
+
+
+4.ip编址
+[internet]interface GigabitEthernet 0/0/1
+[internet-GigabitEthernet0/0/1]ip address 1.2.3.2 30
+
+
+[HZ-HZCampus-Core01-AR6140]interface GigabitEthernet 0/0/1	
+[HZ-HZCampus-Core01-AR6140-GigabitEthernet0/0/1]ip address 1.2.3.1 30
+[HZ-HZCampus-Core01-AR6140-GigabitEthernet0/0/1]q
+[HZ-HZCampus-Core01-AR6140]interface GigabitEthernet 0/0/0.1
+[HZ-HZCampus-Core01-AR6140-GigabitEthernet0/0/0.1]ip address 192.168.10.254 24
+[HZ-HZCampus-Core01-AR6140-GigabitEthernet0/0/0.1]dot1q termination vid 10	
+[HZ-HZCampus-Core01-AR6140-GigabitEthernet0/0/0.1]arp broadcast enable 
+Info: This interface has already been configured with ARP broadcast.
+[HZ-HZCampus-Core01-AR6140-GigabitEthernet0/0/0.1]interface GigabitEthernet 0/0/
+0.2
+[HZ-HZCampus-Core01-AR6140-GigabitEthernet0/0/0.2]dot1q termination vid 20
+[HZ-HZCampus-Core01-AR6140-GigabitEthernet0/0/0.2]ip address 192.168.20.254 24
+[HZ-HZCampus-Core01-AR6140-GigabitEthernet0/0/0.2]arp broadcast enable
+Info: This interface has already been configured with ARP broadcast.
+[HZ-HZCampus-Core01-AR6140-GigabitEthernet0/0/0.2]interface GigabitEthernet 0/0/
+2
+[HZ-HZCampus-Core01-AR6140-GigabitEthernet0/0/2]ip address 3.2.1.1 30
+[HZ-HZCampus-Core01-AR6140-GigabitEthernet0/0/2]
+
+
+[SH-SHEDU-Backbone01-AR6140]interface GigabitEthernet 0/0/2
+[SH-SHEDU-Backbone01-AR6140-GigabitEthernet0/0/2]ip address 3.2.1.2 30
+[SH-SHEDU-Backbone01-AR6140-GigabitEthernet0/0/2]interface GigabitEthernet 0/0/1
+[SH-SHEDU-Backbone01-AR6140-GigabitEthernet0/0/1]ip address 10.2.34.3 30
+[SH-SHEDU-Backbone01-AR6140]interface LoopBack 0	
+[SH-SHEDU-Backbone01-AR6140-LoopBack0]ip address 3.3.3.3 32
+[SH-SHEDU-Backbone01-AR6140-LoopBack0]
+
+
+[SH-SHEDU-Backbone02-AR6140]interface GigabitEthernet 0/0/0	
+[SH-SHEDU-Backbone02-AR6140-GigabitEthernet0/0/0]ip address 10.2.34.4 24
+[SH-SHEDU-Backbone02-AR6140-GigabitEthernet0/0/0]q
+[SH-SHEDU-Backbone02-AR6140]interface GigabitEthernet 0/0/1
+[SH-SHEDU-Backbone02-AR6140-GigabitEthernet0/0/1]ip address 10.2.45.4 24
+[SH-SHEDU-Backbone02-AR6140-GigabitEthernet0/0/1]q
+[SH-SHEDU-Backbone02-AR6140]interface LoopBack 0
+[SH-SHEDU-Backbone02-AR6140-LoopBack0]ip address 4.4.4.4 32
+
+
+[SH-SHEDU-Backbone03-AR6140]interface GigabitEthernet 0/0/0
+[SH-SHEDU-Backbone03-AR6140-GigabitEthernet0/0/0]ip address 10.2.45.5 24
+[SH-SHEDU-Backbone03-AR6140-GigabitEthernet0/0/0]q
+[SH-SHEDU-Backbone03-AR6140]interface LoopBack 0
+[SH-SHEDU-Backbone03-AR6140-LoopBack0]ip address 5.5.5.5 32
+
+
+5.rstp
+
+[HZ-HZCampus-Agg01-S5731]stp mode rstp
+[HZ-HZCampus-Agg01-S5731]stp priority 4096
+
+
+[HZ-HZCampus-Acc01-S5731]stp mode rstp
+[HZ-HZCampus-Acc01-S5731]interface GigabitEthernet 0/0/2	
+[HZ-HZCampus-Acc01-S5731-GigabitEthernet0/0/2]stp edged-port enable 
+
+
+[HZ-HZCampus-Acc02-S5731]stp mode rstp
+[HZ-HZCampus-Acc02-S5731]interface GigabitEthernet 0/0/2	
+[HZ-HZCampus-Acc02-S5731-GigabitEthernet0/0/2]stp edged-port enable 
+
+
+6.出口设计
+
+
+[HZ-HZCampus-Core01-AR6140]ip route-static 0.0.0.0 0.0.0.0 1.2.3.2
+[HZ-HZCampus-Core01-AR6140]ip route-static 0.0.0.0 0.0.0.0 3.2.1.2
+
+
+[SH-SHEDU-Backbone01-AR6140]ip route-static 192.168.20.0 255.255.255.0 3.2.1.1
+
+
+[internet]ip route-static 192.168.10.0 255.255.255.0 1.2.3.1
+
+
+[HZ-HZCampus-Core01-AR6140]acl 2000
+[HZ-HZCampus-Core01-AR6140-acl-basic-2000]rule permit source 192.168.10.0 0.0.0.255
+[HZ-HZCampus-Core01-AR6140-acl-basic-2000]q
+[HZ-HZCampus-Core01-AR6140]interface GigabitEthernet 0/0/1	
+[HZ-HZCampus-Core01-AR6140-GigabitEthernet0/0/1]nat outbound 2000
+
+###查看nat命令：display nat outbound
+###查看acl命令：display acl 2000
+
+
+[HZ-HZCampus-Core01-AR6140-acl-basic-2001]rule permit source 192.168.20.0 0.0.0.255	
+[HZ-HZCampus-Core01-AR6140-acl-basic-2001]rule deny source any
+[HZ-HZCampus-Core01-AR6140-acl-basic-2001]q
+[HZ-HZCampus-Core01-AR6140]display acl 2001
+Basic ACL 2001, 2 rules
+Acl's step is 5
+ rule 5 permit source 192.168.20.0 0.0.0.255 
+ rule 10 deny 
+
+[HZ-HZCampus-Core01-AR6140]interface GigabitEthernet 0/0/2	
+[HZ-HZCampus-Core01-AR6140-GigabitEthernet0/0/2]traffic-filter outbound acl 2001
+[HZ-HZCampus-Core01-AR6140-GigabitEthernet0/0/2]
+
+
+7.ospf
+
+
+[SH-SHEDU-Backbone01-AR6140]ospf 1 router-id 3.3.3.3
+[SH-SHEDU-Backbone01-AR6140-ospf-1]area 0
+[SH-SHEDU-Backbone01-AR6140-ospf-1-area-0.0.0.0]authentication-mode md5 1 cipher
+ huawei@123
+[SH-SHEDU-Backbone01-AR6140-ospf-1-area-0.0.0.0]network 10.2.34.3 0.0.0.0
+[SH-SHEDU-Backbone01-AR6140-ospf-1-area-0.0.0.0]
+
+
+[SH-SHEDU-Backbone02-AR6140]ospf 1 router-id 4.4.4.4
+[SH-SHEDU-Backbone02-AR6140-ospf-1]area 0
+[SH-SHEDU-Backbone02-AR6140-ospf-1-area-0.0.0.0]authentication-mode md5 1 cipher
+ huawei@123
+[SH-SHEDU-Backbone02-AR6140-ospf-1-area-0.0.0.0]network 10.2.45.4 0.0.0.0
+[SH-SHEDU-Backbone02-AR6140-ospf-1-area-0.0.0.0]network 10.2.35.4 0.0.0.0
+
+
+[SH-SHEDU-Backbone03-AR6140]ospf 1 router-id 5.5.5.5
+[SH-SHEDU-Backbone03-AR6140-ospf-1]area 0	
+[SH-SHEDU-Backbone03-AR6140-ospf-1-area-0.0.0.0]authentication-mode md5 1 cipher
+ huawei@123
+[SH-SHEDU-Backbone03-AR6140-ospf-1-area-0.0.0.0]network 10.2.45.5 0.0.0.0
+[SH-SHEDU-Backbone03-AR6140-ospf-1-area-0.0.0.0]
+
+
+8.路由引入
+
+
+[SH-SHEDU-Backbone01-AR6140-ospf-1]import-route static 
