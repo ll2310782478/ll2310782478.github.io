@@ -422,4 +422,28 @@ use装载模块后直接使用info
 
 
 
+日志清理：
+Windows日志清理：
+win+r运行：eventvwr
+清理命令：clearev
+删除系统日志目录下的一些日志文件。
+shell
+c:\windows\system32>del%WINDIR%\*.log/a/s/q/f
 
+linux日志清理：
+不同时期，命令不同。
+
+
+清理历史命令：
+history -c
+
+使系统不再保存历史命令
+vi /etc/profile,找到HISTSIZE这个值，修改为0
+
+删除访问日志
+1.访问失败的日志
+echo >/var/log/btmp
+2.访问成功的日志
+echo >/var/log/wtmp
+(此时执行last命令就会发现没有记录)
+3.删除日志记录：echo >/var/log/secure
